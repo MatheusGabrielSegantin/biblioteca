@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastrar Usuário</title>
+</head>
+<body>
+    <header>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+    {% endwith %}
+    </header>
+
+    <main>
+        <form action="/cadastrar" method="post">
+
+            <h2>Cadastrar Usuário</h2>
+
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome">
+
+            <label for="nome">Email:</label>
+            <input type="text" name="email" id="email">
+
+
+            <label for="nome">Senha:</label>
+            <input type="text" name="senha" id="senha">
+
+            <button type="submit" class="btn">Salvar</button>
+
+        </form>
+    </main>
+
+</body>
+</html>
