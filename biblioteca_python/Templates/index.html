@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Biblioteca Virtual</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header>
+    <div class="cabecalho">
+        <div>
+            <p>BEM-VINDO À</p>
+            <h1>Biblioteca Virtual</h1>
+        </div>
+
+        <a class="sair" href="{{ url_for('logout') }}">
+            Sair da conta
+        </a>
+
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</header>
+<main>
+    <div class="topo">
+        <h2>Livros cadastrados</h2>
+        <div class="botoes">
+            <a href="{{ url_for('novo') }}">
+                + Adicionar livro
+            </a>
+            <a href="{{ url_for('relatorio') }}">
+                Baixar PDF
+            </a>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Ano de Publicação</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for livro in livros %}
+            <tr>
+                <td>{{ livro[0] }}</td>
+                <td>{{ livro[1] }}</td>
+                <td>{{ livro[2] }}</td>
+                <td>{{ livro[3] }}</td>
+
+                <td class="acoes">
+
+                    <a href="{{ url_for('editar', id=livro[0]) }}">
+                        Editar
+                    </a>
+
+                    <form action="{{ url_for('deletar', id=livro[0]) }}" method="POST">
+                        <button type="submit">
+                            Deletar
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+</body>
+</html>
